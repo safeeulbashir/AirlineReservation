@@ -2,6 +2,7 @@ package airlinereservation.rest.controller;
 
 import airlinereservation.repositories.model.Flight;
 import airlinereservation.repositories.model.FlightDetails;
+import airlinereservation.rest.serviceInterface.FlightDetailsService;
 import airlinereservation.rest.serviceInterface.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -20,6 +21,8 @@ import java.util.List;
 public class FlightController {
     @Autowired
     FlightService flightService;
+/*    @Autowired
+    FlightDetailsService flightDetailsService;*/
   @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String addOrUpdateFlight(@RequestBody Flight flight) {
 
@@ -32,10 +35,16 @@ public class FlightController {
         flightService.deleteFlight(flightService.getFlight(flightId));
         return "Flight Information Deleted";
     }
-
+    /*@RequestMapping(value = "/{flightId}/{departureDate}", produces = MediaType.APPLICATION_JSON_VALUE )
+    public FlightDetails viewFlightDetails(@PathVariable Integer flightid,  @PathVariable Date departureDate)
+    {
+        //flightService.get
+        return flightDetailsService.getFlightDetails(flightid,departureDate);
+        //return null;
+    }*/
     @RequestMapping(value = "/{flightId}", produces = MediaType.APPLICATION_JSON_VALUE )
     public Flight viewFlight(@PathVariable Integer flightId) {
-      /*  Flight flight= new Flight();
+        Flight flight= new Flight();
         FlightDetails flightDetails= new FlightDetails();
         flight.setAirlineId(100);
         flight.setAirlineName("American Airlines");
@@ -53,7 +62,7 @@ public class FlightController {
         flight.setFlightDetailsList(myList);
         flight.getFlightDetailsList().add(flightDetails);
         flightService.addFlight(flight);
-*/
+
 
 
         return flightService.getFlight(flightId);
